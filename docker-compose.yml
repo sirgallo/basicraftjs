@@ -1,0 +1,27 @@
+version: "3"
+services:
+  raftapi:
+    image: raftapi_img
+    build:
+      context: ./server
+    ports:
+      - '8888'
+    environment:
+      - NODE_ENV=docker
+      - NODE_OPTIONS="--max-old-space-size=4096"
+    volumes:
+      - raftapidata:/usr/src/app
+    networks:
+      - raftlayer
+    restart: always
+    healthcheck:
+        test: curl --fail http://localhost:8888/heartbeat || kill 1
+        interval: 45s
+        timeout: 10s
+        retries: 3
+        start_period: 30s
+networks:
+  raftlayer:
+    driver: bridge
+volumes:
+    raftapidata:

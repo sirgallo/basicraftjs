@@ -1,0 +1,25 @@
+{
+  "name": "basicraftjs",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./startRaftService.js"
+  },
+  "keywords": [],
+  "author": "SirGallo",
+  "license": "ISC",
+  "dependencies": {
+    "cluster": "^0.7.7",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "http": "^0.0.1-security",
+    "http-errors": "^1.8.0",
+    "morgan": "^1.10.0",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
+    "zeromq": "^5.2.8"
+  }
+}
