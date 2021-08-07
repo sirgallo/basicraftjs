@@ -15,7 +15,7 @@ services:
       - raftlayer
     restart: always
     healthcheck:
-        test: curl --fail http://localhost:8888/heartbeat || kill 1
+        test: curl --fail http://localhost:8888/poll || kill 1
         interval: 45s
         timeout: 10s
         retries: 3

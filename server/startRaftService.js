@@ -1,10 +1,8 @@
-const Server = require('./RaftServer')
+const healthcheckroutes = require('./srv/HealthCheckRoutes')
+const Service = require('./core/providers/StartService.js')
 
-const heartBeatRoute = require('./srv/Heartbeat')
+console.log(healthcheckroutes[0])
+const SrvTypes = require('./core/types/IServerTypes')
 
-const routes = [
-  { path: '/heartbeat', router: heartBeatRoute }
-]
-
-const server = new Server(routes, true)
-server.run()
+const service = new Service(healthcheckroutes, SrvTypes.raft)
+service.start()
