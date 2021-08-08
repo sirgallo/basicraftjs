@@ -1,8 +1,11 @@
-const healthcheckroutes = require('./srv/HealthCheckRoutes')
 const Service = require('./core/providers/StartService.js')
-
-console.log(healthcheckroutes[0])
 const SrvTypes = require('./core/types/IServerTypes')
 
-const service = new Service(healthcheckroutes, SrvTypes.raft)
-service.start()
+const PollRoute = require('./srv/Poll')
+
+const pollroute = new PollRoute('/poll')
+pollroute.init()
+
+const service = new Service([pollroute], SrvTypes.single)
+//service.start()
+console.log(service.routers[0].router)

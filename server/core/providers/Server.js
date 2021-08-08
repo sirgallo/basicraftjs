@@ -1,5 +1,4 @@
 require('dotenv').config({ path: '.env' })
-const http = require('http')
 const cluster = require('cluster')
 const os = require('os')
 const createError = require('http-errors')
@@ -22,6 +21,8 @@ const normalizePort = (val) => {
 }
 
 class Server {
+  app = express()
+
   port = normalizePort(process.env.PORT || '3000')
   ip = os.networkInterfaces()['eth0'][0].address
 
@@ -32,12 +33,22 @@ class Server {
   workers = []
 
   constructor(routes, isCluster) {
-    this.app = express()
     this.routes = routes
     this.isCluster = isCluster
   }
 
   run() {
+    this.setApp()
+    console.log(`Welcome to ${this.name}, version ${this.version}`)
+    console.log('')
+    if(this.isCluster && cluster.isMaster) {
+      this.setUpWorkers()
+    } else {
+      this.setUpServer()
+    }
+  }
+
+  setApp () {
     this.app.set('port', this.port)
 
     this.app.use(logger('dev'))
@@ -47,8 +58,10 @@ class Server {
     this.app.use(express.static(path.join(__dirname, 'public')))
     this.app.use(compression())
 
-    for (const route of this.routes) 
+    for (const route of this.routes) {
+      console.log(route)
       this.app.use(route.path, route.router)
+    }
         
     // catch 404 and forward to error handler
     this.app.use((req, res, next) => {
@@ -63,12 +76,6 @@ class Server {
       
       res.status(err.status || 500).json({ error: err.message })
     })
-
-    if(this.isCluster && cluster.isMaster) {
-      this.setUpWorkers()
-    }
-    else
-      this.setUpServer()
   }
 
   setUpServer () {
@@ -78,8 +85,6 @@ class Server {
   }
 
   setUpWorkers () {
-    console.log(`Welcome to ${this.name}, version ${this.version}`)
-    console.log('')
     console.log(`Server @${this.ip} setting up ${this.numOfCpus} CPUs as workers.`)
     console.log('')
 

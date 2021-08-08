@@ -6,7 +6,7 @@ class Route {
     this.rootpath = rootpath
   }
 
-  initialize() {}
+  init() {}
 }
 
 module.exports = Route
