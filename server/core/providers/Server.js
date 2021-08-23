@@ -21,8 +21,6 @@ const normalizePort = (val) => {
 }
 
 class Server {
-  app = express()
-
   port = normalizePort(process.env.PORT || '3000')
   ip = os.networkInterfaces()['eth0'][0].address
 
@@ -33,6 +31,7 @@ class Server {
   workers = []
 
   constructor(routes, isCluster) {
+    this.app = express()
     this.routes = routes
     this.isCluster = isCluster
   }
@@ -59,7 +58,6 @@ class Server {
     this.app.use(compression())
 
     for (const route of this.routes) {
-      console.log(route)
       this.app.use(route.path, route.router)
     }
         

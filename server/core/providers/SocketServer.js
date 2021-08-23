@@ -7,7 +7,7 @@ const connprot = require('../types/IConnProtocol')
 
 const localhost = '127.0.0.1'
 
-class SocketServer extends Server {
+class SocketServer {
   socktype = socktypes.sub
   connprotocol = connprot.tcp
   host = os.hostname()
@@ -15,7 +15,6 @@ class SocketServer extends Server {
   sock = ''
   
   constructor(routes, isCluster, topic, socktype) {
-    super(routes, isCluster)
     this.topic = topic
     this.socktype = socktype
   }
@@ -37,6 +36,14 @@ class SocketServer extends Server {
         console.log({ topic: topic, message: message })
       })
     }
+  }
+
+  publisher() {
+
+  }
+
+  subscriber() {
+    
   }
 }
 
