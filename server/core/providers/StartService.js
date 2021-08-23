@@ -12,14 +12,19 @@ class StartService {
 
   start() {
     try {
-      if (this.srvtype == SrvTypes.server)
-        this.server = new Server(this.routers, true)
-      else if (this.srvtype == SrvTypes.raft)
-        this.server = new Raft(this.routers, true)
-      else if (this.srvtype == SrvTypes.single)
-        this.server = new Server(this.routers, false)
-      else
-        throw new Error('Incorrect Server Type Specified')
+      switch(this.srvtype) {
+        case SrvTypes.server:
+          this.server = new Server(this.routers, true)
+          break
+        case SrvTypes.raft:
+          this.server = new Raft(this.routers, true)
+          break
+        case SrvTypes.single:
+          this.server = new Server(this.routers, false)
+          break
+        default:
+          throw new Error('Incorrect Server Type Specified')
+      }
       this.server.run()
     } catch (err) {
       console.log(err)
