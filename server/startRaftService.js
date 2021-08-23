@@ -4,7 +4,7 @@ const SrvTypes = require('./core/types/IServerTypes')
 const PollRoute = require('./routes/Poll')
 
 const routes = [
-  { path: PollRoute.path, router: PollRoute.router }
+  PollRoute
 ]
 
 const service = new Service(routes, SrvTypes.server)

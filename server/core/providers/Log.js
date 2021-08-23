@@ -1,7 +1,7 @@
-const entry = require('../types/ILog')
+const entry = require('../types/ILog').ILog
 
 class Log {
-  Log = entry.ILog;
+  Log = entry;
   constructor() {
   }
 

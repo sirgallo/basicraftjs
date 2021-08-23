@@ -1,18 +1,26 @@
+const Route = require('../core/providers/Route')
+
 const express = require('express')
 const router = express.Router()
 
-class Poll {
-  constructor() {
+class Poll extends Route {
+  constructor(rootpath) {
+    super(rootpath)
     router.get('/', this.poll)
   }
 
-  poll = (req, res, next) => {
+  //  does not need to be asynchronous
+  poll(req, res, next){
     res
       .status(200)
       .send({ alive: 'okay' })
   }
 }
 
-new Poll()
+const poll = new Poll('/poll')
+const pollroute = { 
+  path: poll.rootpath,
+  router: router 
+}
 
-module.exports = { path: '/poll', router: router }
+module.exports = pollroute
