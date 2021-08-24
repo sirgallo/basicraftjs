@@ -1,4 +1,4 @@
-const Service = require('./core/providers/StartService.js')
+const Service = require('./core/providers/StartServiceProvider.js')
 const SrvTypes = require('./core/types/IServerTypes')
 
 const PollRoute = require('./routes/Poll')

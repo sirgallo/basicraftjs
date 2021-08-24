@@ -58,7 +58,7 @@ class Server {
     this.app.use(compression())
 
     for (const route of this.routes) {
-      this.app.use(route.path, route.router)
+      this.app.use(route.rootpath, route.router)
     }
         
     // catch 404 and forward to error handler

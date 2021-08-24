@@ -1,7 +1,7 @@
 const Server = require('./Server')
 
-const ServerState = require('../types/IServerState')
-const Log = require('../types/ILog')
+const ServerState = require('./types/IServerState')
+const Log = require('./types/ILog')
 
 const randTimeout = (min, max) => {
   min = Math.ceil(min)
@@ -16,6 +16,7 @@ class RaftServer extends Server {
     super(routes, isCluster)
     this.serverState = ServerState.follower
     this.log = Log
+    console.log(this)
   }
 }
 

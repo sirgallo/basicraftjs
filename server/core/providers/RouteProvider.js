@@ -1,10 +1,10 @@
 const express = require('express')
 
-class Route {
+class RouteProvider {
   router = express.Router()
   constructor(rootpath) {
     this.rootpath = rootpath
   }
 }
 
-module.exports = Route
+module.exports = RouteProvider

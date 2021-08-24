@@ -1,8 +1,8 @@
-const Server = require('./Server')
-const Raft = require('./RaftServer')
+const Server = require('../Server')
+const Raft = require('../RaftServer')
 const SrvTypes = require('../types/IServerTypes')
 
-class StartService {
+class StartServiceProvider {
   server;
   routers = []
   constructor(routers, srvtype) {
@@ -33,4 +33,4 @@ class StartService {
   }
 }
 
-module.exports = StartService
+module.exports = StartServiceProvider

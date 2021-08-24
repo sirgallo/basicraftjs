@@ -2,12 +2,12 @@ const zmq = require('zeromq')
 const os = require('os')
 
 const Server = require('./Server')
-const socktypes = require('../types/ISocketTypes')
-const connprot = require('../types/IConnProtocol')
+const socktypes = require('./types/ISocketTypes')
+const connprot = require('./types/IConnProtocol')
 
 const localhost = '127.0.0.1'
 
-class SocketServer {
+class SocketServer extends Server {
   socktype = socktypes.sub
   connprotocol = connprot.tcp
   host = os.hostname()
@@ -15,13 +15,23 @@ class SocketServer {
   sock = ''
   
   constructor(routes, isCluster, topic, socktype) {
+    super(routes, isCluster)
     this.topic = topic
     this.socktype = socktype
   }
 
   setSockType(socktype) {
-    this.socktype = socktype
-    this.setupSocket()
+    if (socktype in socktypes) {
+      this.socktype = socktype
+      this.setupSocket()
+    }
+  }
+
+  setConnProtocol(prot) {
+    if (prot in connprot) {
+      this.connprotocol = prot
+      this.setupSocket()
+    }
   }
 
   setupSocket() {
@@ -43,7 +53,7 @@ class SocketServer {
   }
 
   subscriber() {
-    
+
   }
 }
 

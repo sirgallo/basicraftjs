@@ -1,7 +1,4 @@
-const Route = require('../core/providers/Route')
-
-const express = require('express')
-const router = express.Router()
+const Route = require('../core/providers/RouteProvider')
 
 class Message extends Route {
 

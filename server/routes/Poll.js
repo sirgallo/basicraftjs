@@ -1,4 +1,5 @@
-const Route = require('../core/providers/Route')
+const Route = require('../core/providers/RouteProvider')
+const IRoute = require('../core/types/IRoute')
 
 class Poll extends Route {
   constructor(rootpath) {
@@ -7,7 +8,7 @@ class Poll extends Route {
   }
 
   //  does not need to be asynchronous
-  poll(req, res, next){
+  poll(req, res, next) {
     res
       .status(200)
       .send({ alive: 'okay' })
@@ -15,9 +16,5 @@ class Poll extends Route {
 }
 
 const poll = new Poll('/poll')
-const pollroute = { 
-  path: poll.rootpath,
-  router: poll.router 
-}
 
-module.exports = pollroute
+module.exports = poll
