@@ -1,5 +1,4 @@
 const Route = require('../core/providers/RouteProvider')
-const IRoute = require('../core/types/IRoute')
 
 class Poll extends Route {
   constructor(rootpath) {
