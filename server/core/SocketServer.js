@@ -12,7 +12,7 @@ class SocketServer extends Server {
   connprotocol = connprot.tcp
   host = os.hostname()
 
-  sock = ''
+  sock
   
   constructor(routes, isCluster, topic, socktype) {
     super(routes, isCluster)

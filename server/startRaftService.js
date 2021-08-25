@@ -7,5 +7,5 @@ const routes = [
   PollRoute
 ]
 
-const service = new Service(routes, SrvTypes.server)
+const service = new Service(routes, SrvTypes.server) 
 service.start()

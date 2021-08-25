@@ -3,7 +3,7 @@ const Raft = require('../RaftServer')
 const SrvTypes = require('../types/IServerTypes')
 
 class StartServiceProvider {
-  server;
+  server
   routers = []
   constructor(routers, srvtype) {
     this.routers = routers

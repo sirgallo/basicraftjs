@@ -22,7 +22,7 @@ const normalizePort = (val) => {
 
 class Server {
   port = normalizePort(process.env.PORT || '3000')
-  ip = os.networkInterfaces()['eth0'][0].address
+  hostname = os.hostname()
 
   numOfCpus = process.env.CPUS || os.cpus().length
   name = process.env.NAME || 'API'
@@ -38,8 +38,6 @@ class Server {
 
   run() {
     this.setApp()
-    console.log(`Welcome to ${this.name}, version ${this.version}`)
-    console.log('')
     if(this.isCluster && cluster.isMaster) {
       this.setUpWorkers()
     } else {
@@ -78,12 +76,13 @@ class Server {
 
   setUpServer () {
     this.app.listen(this.port, () => {
-      console.log(`Server ${process.pid} listening on port ${this.port}`)
+      console.log(`Worker ${this.hostname}:${process.pid} listening on port ${this.port}`)
+      console.log(`Welcome to ${this.name}, version ${this.version}\n`)
     })
   }
 
   setUpWorkers () {
-    console.log(`Server @${this.ip} setting up ${this.numOfCpus} CPUs as workers.`)
+    console.log(`Server @host:${this.hostname} setting up ${this.numOfCpus} CPUs as workers.`)
     console.log('')
 
     for(let cpu = 0; cpu < this.numOfCpus; cpu++) {
@@ -95,7 +94,7 @@ class Server {
     }
 
     cluster.on('online', worker => {
-      console.log(`Worker ${worker.process.pid} is online.`)
+      console.log(`Worker ${this.hostname}:${worker.process.pid} is online.\n`)
     })
 
     cluster.on('exit', (worker, code, signal) => {
